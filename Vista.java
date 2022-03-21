@@ -1,5 +1,5 @@
 import java.io.File;
-import java.util.Scanner;
+import java.util.*;
 import java.io.FileNotFoundException;
 import java.text.Normalizer;
 
@@ -7,23 +7,31 @@ class Vista{
 	
 	Scanner scan = new Scanner(System.in);
 
-	public void leer(){
+	public Map<String, ArrayList<Objeto>> leer(Map<String, ArrayList<Objeto>> map){
 		try{
 			Scanner read = new Scanner(new File("ListadoProducto.txt"));
 			while(read.hasNextLine()){
 				String data = read.nextLine();
-				System.out.println(clean(data));
+				data = clean(data);
+				String cat = data.substring(0, data.indexOf("|")-1);
+				String prod = data.substring(data.indexOf("|")+2);
+				if(map.get(cat) != null){
+					map.get(cat).add(new Objeto(prod, 1, cat));
+				} else{
+					ArrayList<Objeto> temp = new ArrayList<Objeto>();
+					temp.add(new Objeto(prod, 1, cat));
+					map.put(cat, temp);
+				}
 			}
 
 		} catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
+
+		return map;
 	}
 
 	public String clean(String s) {
-    	//s = Normalizer.normalize(s, Normalizer.Form.NFD);
-    	//s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-    	//return s;
 		String norm = Normalizer.normalize(s, Normalizer.Form.NFD);   
 		return norm.replaceAll("[^\\p{ASCII}]", "");
 
@@ -42,6 +50,15 @@ class Vista{
 			}
 		}
 		
+	}
+
+	public void showMap(Map<String, ArrayList<Objeto>> map){
+		for(String key : map.keySet()){
+			System.out.println(key);
+			for(int i = 0; i<map.get(key).size(); i++){
+				System.out.println("	" + (i+1) + ". " + map.get(key).get(i).getNombre());
+			}
+		}
 	}
 
 }

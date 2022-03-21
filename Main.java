@@ -5,13 +5,15 @@ class Main{
 
 		Vista v = new Vista();
 		MapFactory f = new MapFactory();
-		Map<String, Objeto> objetos = f.createMap(v.getTipo());
+		Map<String, ArrayList<Objeto>> objetos = f.createMap(v.getTipo());
 
 		try{
-			v.leer();
+			objetos = v.leer(objetos);
 		} catch(Exception e){
 			System.out.println("xd");
 		}
+
+		v.showMap(objetos);
 		
 
 	}
