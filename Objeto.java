@@ -21,8 +21,12 @@ class Objeto{
 		return categoria;
 	}
 
-	//@Override
-	//public String toString(){
-		//return nombre + " | " + categoria + " | Cantidad: " + cantidad; 
-	//}
+	public void agregar(){
+		cantidad++;
+	}
+
+	@Override
+	public String toString(){
+		return nombre + " | " + categoria + " | Cantidad: " + cantidad; 
+	}
 }

@@ -28,6 +28,7 @@ class Vista{
 			e.printStackTrace();
 		}
 
+		System.out.println("Archivo leido correctamente\n");
 		return map;
 	}
 
@@ -42,14 +43,92 @@ class Vista{
 		System.out.println("Ingrese el tipo de mapa a utilizar: ");
 		System.out.println("1. HashMap\n2. TreeMap\n3. LinkedHashMap");
 		while(true){
-			num = scan.nextInt();
-			if(num > 0 && num < 4){
-				return num;
-			} else{
+			num = 0;
+			try{
+				num = scan.nextInt();
+				if(num > 0 && num < 4){
+					return num;
+				} else{
+					System.out.println("Ingrese una opcion valida");
+				}
+			} catch(Exception e){
 				System.out.println("Ingrese un entero");
 			}
+			
 		}
 		
+	}
+
+	public int getMenu(){
+		int num;
+		System.out.println("Ingrese una accion: ");
+		System.out.println("1. Agregar un articulo a la coleccion\n2. Mostrar categoria de un producto\n3. Mostrar productos en la coleccion");
+		System.out.println("4. Mostrar productos en la coleccion ordenados\n5. Mostrar inventario\n6. Mostrar inventario ordenado");
+		System.out.println("7. Salir");
+		while(true){
+			try{
+				num = scan.nextInt();
+				if(num > 0 && num < 8){
+					return num;
+				} else{
+					System.out.println("Ingrese una opcion valida");
+				}
+			} catch(Exception e){
+				System.out.println("Ingrese un entero");
+			}
+			
+		}
+		
+	}
+
+	public int getCat(Set<String> c){
+		int temp = 1;
+		int num;
+		System.out.println("\nEscoja una categoria: ");
+		for(String s : c){
+			System.out.println(temp + ". " + s);
+			temp++;
+		}
+		System.out.println(temp + ". Regresar");
+		while(true){
+			num = 0;
+			try{
+				num = scan.nextInt();
+				if(num > 0 && num <= c.size()+1){
+					return num;
+				} else{
+					System.out.println("Ingrese una opcion valida");
+				}
+			} catch(Exception e){
+				System.out.println("Ingrese un entero");
+			}
+			
+		}
+	}
+
+	public int getProd(ArrayList<Objeto> arr){
+		int temp = 1;
+		int num;
+		System.out.println("\nEscoja un producto a agregar: ");
+		for(Objeto s : arr){
+			System.out.println(temp + ". " + s.getNombre());
+			temp++;
+		}
+		System.out.println(temp + ". Regresar");
+		while(true){
+			num = 0;
+			try{
+				num = scan.nextInt();
+				if(num > 0 && num <= arr.size()+1){
+					return num;
+				} else{
+					System.out.println("Ingrese una opcion valida");
+				}
+			} catch(Exception e){
+				System.out.println("Ingrese un entero");
+			}
+			
+		}
 	}
 
 	public void showMap(Map<String, ArrayList<Objeto>> map){
@@ -59,6 +138,10 @@ class Vista{
 				System.out.println("	" + (i+1) + ". " + map.get(key).get(i).getNombre());
 			}
 		}
+	}
+
+	public void allGood(){
+		System.out.println("Producto agregado exitosamente");
 	}
 
 }
