@@ -5,7 +5,8 @@ class Main{
 
 		Vista v = new Vista();
 		MapFactory f = new MapFactory();
-		Map<String, ArrayList<Objeto>> objetos = f.createMap(v.getTipo());
+		int tipo = v.getTipo();
+		Map<String, ArrayList<Objeto>> objetos = f.createMap(tipo);
 		ArrayList<Objeto> carrito = new ArrayList<Objeto>();
 		int menu = 0;
 		int menu1 = 0;
@@ -56,6 +57,63 @@ class Main{
 							}
 						}
 					}
+					break;
+
+				case 2:
+					String search = v.getCleanInput();
+					boolean fl = true;
+					for(String k : objetos.keySet()){
+						for(Objeto m : objetos.get(k)){
+							if(m.getNombre().equals(search)){
+								System.out.println(m.getCategoria());
+								fl = false;
+							}
+						}
+					}
+					if(fl){
+						System.out.println("Ese producto no existe en el inventario");
+					}
+					break;
+
+				case 3:
+					if(!carrito.isEmpty()){
+						v.mostrarCol(carrito);
+					} else{
+						System.out.println("No hay ningun articulo en su coleccion");
+					}
+					break;
+					
+
+				case 4:
+					Map<String, ArrayList<Objeto>> cTemp = f.createMap(tipo);
+					if(!carrito.isEmpty()){
+						for(Objeto s : carrito){
+							if(cTemp.containsKey(s.getCategoria())){
+								cTemp.get(s.getCategoria()).add(s);
+							} else{
+								ArrayList<Objeto> obj = new ArrayList<Objeto>();
+								obj.add(s);
+								cTemp.put(s.getCategoria(), obj);
+							}
+						}
+						v.showMap(cTemp);
+					} else {
+						System.out.println("No hay ningun articulo en su coleccion");
+					}
+					break;
+
+				case 5:
+					ArrayList<Objeto> tempInv = new ArrayList<Objeto>();
+					for(String k : objetos.keySet()){
+						for(Objeto m : objetos.get(k)){
+							tempInv.add(m);
+						}
+					}
+					v.mostrarInv(tempInv);
+					break;
+
+				case 6:
+					v.showInv(objetos);
 					break;
 			}
 		}

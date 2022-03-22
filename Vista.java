@@ -28,7 +28,7 @@ class Vista{
 			e.printStackTrace();
 		}
 
-		System.out.println("Archivo leido correctamente\n");
+		System.out.println("Archivo cargado correctamente\n");
 		return map;
 	}
 
@@ -61,7 +61,7 @@ class Vista{
 
 	public int getMenu(){
 		int num;
-		System.out.println("Ingrese una accion: ");
+		System.out.println("\n" + "-".repeat(30) + "MENU" + "-".repeat(30));
 		System.out.println("1. Agregar un articulo a la coleccion\n2. Mostrar categoria de un producto\n3. Mostrar productos en la coleccion");
 		System.out.println("4. Mostrar productos en la coleccion ordenados\n5. Mostrar inventario\n6. Mostrar inventario ordenado");
 		System.out.println("7. Salir");
@@ -131,7 +131,33 @@ class Vista{
 		}
 	}
 
+	public void mostrarCol(ArrayList<Objeto> arr){
+		System.out.println("\nColeccion: ");
+		for(Objeto s : arr){
+			System.out.println(s);
+		}
+		
+	}
+
+	public void mostrarInv(ArrayList<Objeto> arr){
+		int a = 1;
+		for(Objeto s : arr){
+			System.out.println(a + ". " + s.getNombre() + " | " + s.getCategoria());
+			a++;
+		}
+		
+	}
+
 	public void showMap(Map<String, ArrayList<Objeto>> map){
+		for(String key : map.keySet()){
+			System.out.println(key);
+			for(int i = 0; i<map.get(key).size(); i++){
+				System.out.println("	" + map.get(key).get(i).getCantidad() + " - " + map.get(key).get(i).getNombre());
+			}
+		}
+	}
+
+	public void showInv(Map<String, ArrayList<Objeto>> map){
 		for(String key : map.keySet()){
 			System.out.println(key);
 			for(int i = 0; i<map.get(key).size(); i++){
@@ -142,6 +168,13 @@ class Vista{
 
 	public void allGood(){
 		System.out.println("Producto agregado exitosamente");
+	}
+
+	public String getCleanInput(){
+		System.out.println("Ingrese el nombre del producto a buscar (Tome en cuenta las mayusculas y tildes): ");
+		scan.nextLine();
+		String s = scan.nextLine();
+		return clean(s);
 	}
 
 }
